@@ -3,6 +3,14 @@ import { Route, Link, Switch } from "react-router-dom";
 import * as yup from "yup";
 import axios from "axios";
 
+const intialFormValues ={
+    name: '',
+    size: '',
+    pepperoni: '',
+    sausage: '',
+    canadianbacon: '',
+    italianSausage: ''
+}
 
 const formSchema = yup.object().shape({
     name: yup.string().required("Name is Required").min(2, "Minimum Length 2 Characters"),
@@ -11,7 +19,6 @@ const formSchema = yup.object().shape({
     sausage: yup.string(),
     canadianbacon: yup.string(),
     italianSausage: yup.string(),
-    special: yup.string()
 })
 
 
@@ -51,7 +58,7 @@ function Form() {
 
                 setPost([...post, res.data]);
                 // console.log(post)}
-                setFormState(formState)
+                setFormState(intialFormValues)
             })
 
 
@@ -110,7 +117,7 @@ function Form() {
                 <h2>Choice of Size</h2>
                 <p>Required</p>
                 <label>
-                    <select id="size" name="size">
+                    <select name="size">
                         <option value="personal">Personal</option>
                         <option value="md">Medium</option>
                         <option value="lg">Large</option>
@@ -118,7 +125,7 @@ function Form() {
                     </select>
                 </label>
                 <h2>Choose Your Toppings</h2>
-                <span>Choose Up To 8</span><br />
+                <br />
                 <label><input 
                 type="checkbox" 
                 name="pepperoni" 
@@ -147,15 +154,13 @@ function Form() {
 
 
 
-                <label><h2>Special Instructions</h2><input type="textarea" name="special" placeholder="Anything Else You'd Like To Add?" value={formState.special} onChange={inputChange} /></label>
-                <div>{JSON.stringify(post, null, 2)}</div>
-            <div>
-                {post.map((order) => {
-                    return(
-                        <p>{order.size}</p>
-                    )
-                })}
-            </div>
+                <label><h2>Special Instructions</h2><input 
+                type="textarea" name="special" 
+                placeholder="Anything Else You'd Like To Add?" 
+                value={formState.special} 
+                onChange={inputChange} /></label>
+                <div>{JSON.stringify(post)}</div>
+            
                 
                 <button className="submit" disabled={buttonDisabled}>Submit</button>
             </form>
