@@ -110,9 +110,7 @@ function Form() {
                     placeholder="Name" 
                     value={formState.name} 
                     onChange={inputChange} />
-
                     {errors.name}
-
                 </div>
                 <h2>Choice of Size</h2>
                 <p>Required</p>
