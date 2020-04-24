@@ -8,6 +8,7 @@ function Home(){
         <>
         <header>
         <h1>Welcome to Lambda Eats</h1>
+        <h3>Better School, Better Pizza, Lambda Eats</h3>
         </header>
         </>
         );
