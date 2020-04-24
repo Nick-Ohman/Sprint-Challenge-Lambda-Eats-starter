@@ -9,16 +9,20 @@ const intialFormValues ={
     pepperoni: '',
     sausage: '',
     canadianbacon: '',
-    italianSausage: ''
+    italianSausage: '',
+    special: yup.string()
 }
 
 const formSchema = yup.object().shape({
-    name: yup.string().required("Name is Required").min(2, "Minimum Length 2 Characters"),
+    name: yup.string()
+    .required("Name is Required")
+    .min(2, "Minimum Length 2 Characters"),
     size: yup.string(),
     pepperoni: yup.string(),
     sausage: yup.string(),
     canadianbacon: yup.string(),
     italianSausage: yup.string(),
+    special: yup.string()
 })
 
 
@@ -31,7 +35,8 @@ function Form() {
         pepperoni: "",
         sausage: "",
         canadianbacon: "",
-        italianSausage: ""
+        italianSausage: "",
+        special: "",
     })
 
     const [errors, setErrors] = useState({
@@ -40,7 +45,8 @@ function Form() {
         pepperoni: "",
         sausage: "",
         canadianbacon: "",
-        italianSausage: ""
+        italianSausage: "",
+        special: ""
     })
 
     const [post, setPost] = useState([])
@@ -74,13 +80,13 @@ function Form() {
             .validate(evt.target.value)
             .then(valid => {
                 setErrors({
-                    ...errors,
+                    errors,
                    
                 });
             })
             .catch(err => {
                 setErrors({
-                    ...errors,
+                    errors,
                     
                 });
             });
@@ -110,12 +116,13 @@ function Form() {
                     placeholder="Name" 
                     value={formState.name} 
                     onChange={inputChange} />
-                    {errors.name}
+                    
                 </div>
+                <p>{errors.name}</p>
                 <h2>Choice of Size</h2>
                 <p>Required</p>
                 <label>
-                    <select name="size">
+                    <select name="size" value={formState.size}>
                         <option value="personal">Personal</option>
                         <option value="md">Medium</option>
                         <option value="lg">Large</option>

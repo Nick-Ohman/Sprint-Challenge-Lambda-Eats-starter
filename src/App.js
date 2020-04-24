@@ -10,12 +10,14 @@ const App = () => {
   return (
     <>
     <div className="nav">
-      <img src={pizza}/>
+      
       <h1>Lambda Eats</h1>
+      
       <nav>
         <Link to="/">Home</Link><br></br>
         <Link to="/pizza">Create Your Own</Link>
       </nav>
+      <img src={pizza}/>
       </div>
       <Switch>
         <Route path="/pizza"><Form /></Route>
