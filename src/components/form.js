@@ -24,8 +24,7 @@ function Form() {
         pepperoni: "",
         sausage: "",
         canadianbacon: "",
-        italianSausage: "",
-        special: ""
+        italianSausage: ""
     })
 
     const [errors, setErrors] = useState({
@@ -34,8 +33,7 @@ function Form() {
         pepperoni: "",
         sausage: "",
         canadianbacon: "",
-        italianSausage: "",
-        special: ""
+        italianSausage: ""
     })
 
     const [post, setPost] = useState([])
@@ -63,7 +61,34 @@ function Form() {
 
     }
 
-    
+    const validateChange = evt => {
+        yup
+            .reach(formSchema, evt.target.name)
+            .validate(evt.target.value)
+            .then(valid => {
+                setErrors({
+                    ...errors,
+                   
+                });
+            })
+            .catch(err => {
+                setErrors({
+                    ...errors,
+                    
+                });
+            });
+    };
+    const inputChange = evt => {
+        evt.persist();
+        const newFormData = {
+            ...formState,
+            [evt.target.name]:
+                evt.target.type === "checkbox" ? evt.target.checked : evt.target.value
+        };
+
+        validateChange(evt);
+        setFormState(newFormData);
+    };
 
     return (
         <>
@@ -88,8 +113,8 @@ function Form() {
                     <select id="size" name="size">
                         <option value="personal">Personal</option>
                         <option value="md">Medium</option>
-                        <option value="lg">Larger</option>
-                        <option value="xl">Extra Large</option>
+                        <option value="lg">Large</option>
+                        <option value="xl">XL</option>
                     </select>
                 </label>
                 <h2>Choose Your Toppings</h2>
@@ -124,7 +149,13 @@ function Form() {
 
                 <label><h2>Special Instructions</h2><input type="textarea" name="special" placeholder="Anything Else You'd Like To Add?" value={formState.special} onChange={inputChange} /></label>
                 <div>{JSON.stringify(post, null, 2)}</div>
-            
+            <div>
+                {post.map((order) => {
+                    return(
+                        <p>{order.size}</p>
+                    )
+                })}
+            </div>
                 
                 <button className="submit" disabled={buttonDisabled}>Submit</button>
             </form>
